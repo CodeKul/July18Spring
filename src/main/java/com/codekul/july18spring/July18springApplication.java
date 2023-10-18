@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class July18springApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context= SpringApplication.run(July18springApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(July18springApplication.class, args);
 //		Jio jio  = context.getBean(Jio.class);
 //		jio.message();
 //		jio.call();
+
 
 		Company company = context.getBean(Company.class);
 		company.showEmp();
