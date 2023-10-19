@@ -3,6 +3,7 @@ package com.codekul.july18spring.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -50,9 +51,17 @@ public class StudentController {
     }
 
     @DeleteMapping("deleteStudentById/{id}")
-    public String deleteStudentById(@PathVariable("id") Long id) {
+    public String deleteStudentById(@PathVariable(value = "id",required = false) Long id) {
         studentRepository.deleteById(id);
         return "student deleted.";
+    }
+    @GetMapping("findByDob")
+    public List<Student> findByDob(@RequestParam(required = false) LocalDate firstDate,@RequestParam LocalDate secondDate) {
+       return studentRepository.findByDobBetween(firstDate, secondDate);
+    }
+    @GetMapping("findByMarksLessThan")
+    public List<Student> findByMarksLessThan(@RequestParam(required = true) String name) {
+       return studentRepository.findStudentOrderBy(name);
     }
 
 }
