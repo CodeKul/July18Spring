@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class StudentController {
@@ -29,8 +30,8 @@ public class StudentController {
     }
 
     @GetMapping("getStudentById1/{id}")
-    public Student getStudentById1(@PathVariable("id") Long id) {
-        return studentRepository.getReferenceById(id);
+    public Optional<Student> getStudentById1(@PathVariable("id") Long id) {
+        return studentRepository.findById(id);
     }
 
     @PutMapping("updateStudent")
