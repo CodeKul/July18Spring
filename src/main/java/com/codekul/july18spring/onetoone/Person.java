@@ -11,7 +11,7 @@ public class Person {
 
     private String name;
 
-    @OneToOne(mappedBy = "person",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "person",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Adhar adhar;
 
     public Long getId() {

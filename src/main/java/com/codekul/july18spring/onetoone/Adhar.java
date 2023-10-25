@@ -1,6 +1,7 @@
 package com.codekul.july18spring.onetoone;
 
 import jakarta.persistence.*;
+import org.springframework.lang.NonNull;
 
 @Entity
 public class Adhar {
