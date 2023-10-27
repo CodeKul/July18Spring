@@ -1,0 +1,115 @@
+mysql> use july18spring;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_july18spring |
++------------------------+
+| adhar                  |
+| courses                |
+| parts                  |
+| person                 |
+| stud_courses           |
+| student                |
+| vehicle                |
++------------------------+
+7 rows in set (0.00 sec)
+
+mysql> create table bank(id int primary key,name varchar(20) );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table customer(id int primary key,cust_name varchar(30),address varchar(30),bank_id int,foreign key(bank_id) references bank(id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc bank
+    -> ;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int         | NO   | PRI | NULL    |       |
+| cust_name | varchar(30) | YES  |     | NULL    |       |
+| address   | varchar(30) | YES  |     | NULL    |       |
+| bank_id   | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into bank(id,name) values(1,'SBI');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into bank(id,name) values(2,'HDFC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into bank(id,name) values(3,'ICICI');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from bank;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | SBI   |
+|  2 | HDFC  |
+|  3 | ICICI |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into customer(id,cust_name,address,bank_id) values(1,'Raj','Pune',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer(id,cust_name,address,bank_id) values(2,'Mahesh','Pune',2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer(id,cust_name,address,bank_id) values(3,'Jivan','Pune',3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer;
++----+-----------+---------+---------+
+| id | cust_name | address | bank_id |
++----+-----------+---------+---------+
+|  1 | Raj       | Pune    |       1 |
+|  2 | Mahesh    | Pune    |       2 |
+|  3 | Jivan     | Pune    |       3 |
++----+-----------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> update customer set cust_name = 'Rajesh' where id = 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from customer where id = 1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer;
++----+-----------+---------+---------+
+| id | cust_name | address | bank_id |
++----+-----------+---------+---------+
+|  2 | Mahesh    | Pune    |       2 |
+|  3 | Jivan     | Pune    |       3 |
++----+-----------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into customer(id,cust_name,address,bank_id) values(4,'Akash','Mumbai',null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++----+-----------+---------+---------+
+| id | cust_name | address | bank_id |
++----+-----------+---------+---------+
+|  2 | Mahesh    | Pune    |       2 |
+|  3 | Jivan     | Pune    |       3 |
+|  4 | Akash     | Mumbai  |    NULL |
++----+-----------+---------+---------+
+3 rows in set (0.01 sec)
+
+mysql>
+
