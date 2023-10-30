@@ -2,6 +2,7 @@ package com.codekul.july18spring.onetomany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Parts {
@@ -10,6 +11,7 @@ public class Parts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "part name cannot be null")
     private String partName;
 
     @ManyToOne

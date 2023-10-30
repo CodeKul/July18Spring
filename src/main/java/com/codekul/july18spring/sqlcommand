@@ -113,3 +113,529 @@ mysql> select * from customer;
 
 mysql>
 
+mysql> use july18spring
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables
+    -> ;
++------------------------+
+| Tables_in_july18spring |
++------------------------+
+| adhar                  |
+| bank                   |
+| courses                |
+| customer               |
+| parts                  |
+| person                 |
+| stud_courses           |
+| student                |
+| vehicle                |
++------------------------+
+9 rows in set (0.01 sec)
+
+mysql> select * from bank;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | SBI   |
+|  2 | HDFC  |
+|  3 | ICICI |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer;
++----+-----------+---------+---------+
+| id | cust_name | address | bank_id |
++----+-----------+---------+---------+
+|  2 | Mahesh    | Pune    |       2 |
+|  3 | Jivan     | Pune    |       3 |
+|  4 | Akash     | Mumbai  |    NULL |
++----+-----------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer add column balance int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++----+-----------+---------+---------+---------+
+| id | cust_name | address | bank_id | balance |
++----+-----------+---------+---------+---------+
+|  2 | Mahesh    | Pune    |       2 |    NULL |
+|  3 | Jivan     | Pune    |       3 |    NULL |
+|  4 | Akash     | Mumbai  |    NULL |    NULL |
++----+-----------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> update customer balance = 5000 where id = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 5000 where id = 1' at line 1
+mysql> update customer set balance = 5000 where id = 1;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update customer set balance = 8000 where id = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set balance = 14000 where id = 3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++----+-----------+---------+---------+---------+
+| id | cust_name | address | bank_id | balance |
++----+-----------+---------+---------+---------+
+|  2 | Mahesh    | Pune    |       2 |    8000 |
+|  3 | Jivan     | Pune    |       3 |   14000 |
+|  4 | Akash     | Mumbai  |    NULL |    NULL |
++----+-----------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> update customer set balance = 9000 where id = 4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++----+-----------+---------+---------+---------+
+| id | cust_name | address | bank_id | balance |
++----+-----------+---------+---------+---------+
+|  2 | Mahesh    | Pune    |       2 |    8000 |
+|  3 | Jivan     | Pune    |       3 |   14000 |
+|  4 | Akash     | Mumbai  |    NULL |    9000 |
++----+-----------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer rename column cust_name to customer_name;
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+
+| id | customer_name | address | bank_id | balance |
++----+---------------+---------+---------+---------+
+|  2 | Mahesh        | Pune    |       2 |    8000 |
+|  3 | Jivan         | Pune    |       3 |   14000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |
++----+---------------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer add column test int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+------+
+| id | customer_name | address | bank_id | balance | test |
++----+---------------+---------+---------+---------+------+
+|  2 | Mahesh        | Pune    |       2 |    8000 | NULL |
+|  3 | Jivan         | Pune    |       3 |   14000 | NULL |
+|  4 | Akash         | Mumbai  |    NULL |    9000 | NULL |
++----+---------------+---------+---------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer drop column test int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int' at line 1
+mysql> alter table customer drop column test;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+
+| id | customer_name | address | bank_id | balance |
++----+---------------+---------+---------+---------+
+|  2 | Mahesh        | Pune    |       2 |    8000 |
+|  3 | Jivan         | Pune    |       3 |   14000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |
++----+---------------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> desc customer;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id            | int         | NO   | PRI | NULL    |       |
+| customer_name | varchar(30) | YES  |     | NULL    |       |
+| address       | varchar(30) | YES  |     | NULL    |       |
+| bank_id       | int         | YES  | MUL | NULL    |       |
+| balance       | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table customer modify customer_name varchar(50);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id            | int         | NO   | PRI | NULL    |       |
+| customer_name | varchar(50) | YES  |     | NULL    |       |
+| address       | varchar(30) | YES  |     | NULL    |       |
+| bank_id       | int         | YES  | MUL | NULL    |       |
+| balance       | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table customer drop foriegn key test;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key test' at line 1
+mysql>
+mysql> SHOW CREATE TABLE customer;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                       |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| customer | CREATE TABLE `customer` (
+  `id` int NOT NULL,
+  `customer_name` varchar(50) DEFAULT NULL,
+  `address` varchar(30) DEFAULT NULL,
+  `bank_id` int DEFAULT NULL,
+  `balance` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bank_id` (`bank_id`),
+  CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table customer drop foriegn key customer_ibfk_1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key customer_ibfk_1' at line 1
+mysql> alter table customer drop foreign key customer_ibfk_1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+
+| id | customer_name | address | bank_id | balance |
++----+---------------+---------+---------+---------+
+|  2 | Mahesh        | Pune    |       2 |    8000 |
+|  3 | Jivan         | Pune    |       3 |   14000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |
++----+---------------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer ADD CONSTRAINT customer_ibfk_1 FOREIGN KEY (bank_id) REFERENCES bank(id);
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+
+| id | customer_name | address | bank_id | balance |
++----+---------------+---------+---------+---------+
+|  2 | Mahesh        | Pune    |       2 |    8000 |
+|  3 | Jivan         | Pune    |       3 |   14000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |
++----+---------------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select min(balance) from customer;
++--------------+
+| min(balance) |
++--------------+
+|         8000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select max(balance) from customer;
++--------------+
+| max(balance) |
++--------------+
+|        14000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(balance) from customer;
++--------------+
+| avg(balance) |
++--------------+
+|   10333.3333 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(balance) from customer;
++--------------+
+| sum(balance) |
++--------------+
+|        31000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from customer;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> alter table customer add column loan int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update table set loan =90000 where id = 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table set loan =90000 where id = 2' at line 1
+mysql> update table customer  set loan =90000 where id = 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table customer  set loan =90000 where id = 2' at line 1
+mysql> update customer set loan =90000 where id = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set loan =40000 where id = 3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set loan =8000 where id = 4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+-------+
+| id | customer_name | address | bank_id | balance | loan  |
++----+---------------+---------+---------+---------+-------+
+|  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |  8000 |
++----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(balance),sum(balance) from customer;
++--------------+--------------+
+| sum(balance) | sum(balance) |
++--------------+--------------+
+|        31000 |        31000 |
++--------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(balance),sum(loan) from customer;
++--------------+-----------+
+| sum(balance) | sum(loan) |
++--------------+-----------+
+|        31000 |    138000 |
++--------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+-------+
+| id | customer_name | address | bank_id | balance | loan  |
++----+---------------+---------+---------+---------+-------+
+|  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |  8000 |
++----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | SBI   |
+|  2 | HDFC  |
+|  3 | ICICI |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> update customer set balance = null,loan = null where bank_id = null;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from bank;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | SBI   |
+|  2 | HDFC  |
+|  3 | ICICI |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+-------+
+| id | customer_name | address | bank_id | balance | loan  |
++----+---------------+---------+---------+---------+-------+
+|  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |  8000 |
++----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> update customer set balance = NULL,loan = NULL where bank_id = NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+-------+
+| id | customer_name | address | bank_id | balance | loan  |
++----+---------------+---------+---------+---------+-------+
+|  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|  4 | Akash         | Mumbai  |    NULL |    9000 |  8000 |
++----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> update customer set balance = NULL,loan = NULL where bank_id is NULL;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+-------+
+| id | customer_name | address | bank_id | balance | loan  |
++----+---------------+---------+---------+---------+-------+
+|  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|  4 | Akash         | Mumbai  |    NULL |    NULL |  NULL |
++----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | SBI   |
+|  2 | HDFC  |
+|  3 | ICICI |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank b;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | SBI   |
+|  2 | HDFC  |
+|  3 | ICICI |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank b inner join customer c on c.bank_id = b.id;
++----+-------+----+---------------+---------+---------+---------+-------+
+| id | name  | id | customer_name | address | bank_id | balance | loan  |
++----+-------+----+---------------+---------+---------+---------+-------+
+|  2 | HDFC  |  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | ICICI |  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
++----+-------+----+---------------+---------+---------+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from bank b left join customer c on c.bank_id = b.id;
++----+-------+------+---------------+---------+---------+---------+-------+
+| id | name  | id   | customer_name | address | bank_id | balance | loan  |
++----+-------+------+---------------+---------+---------+---------+-------+
+|  1 | SBI   | NULL | NULL          | NULL    |    NULL |    NULL |  NULL |
+|  2 | HDFC  |    2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | ICICI |    3 | Jivan         | Pune    |       3 |   14000 | 40000 |
++----+-------+------+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank b right join customer c on c.bank_id = b.id;
++------+-------+----+---------------+---------+---------+---------+-------+
+| id   | name  | id | customer_name | address | bank_id | balance | loan  |
++------+-------+----+---------------+---------+---------+---------+-------+
+|    2 | HDFC  |  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|    3 | ICICI |  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+| NULL | NULL  |  4 | Akash         | Mumbai  |    NULL |    NULL |  NULL |
++------+-------+----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank b left join customer c on c.bank_id = b.id union all select * from bank b right join customer c on c.bank_id = b.id;
++------+-------+------+---------------+---------+---------+---------+-------+
+| id   | name  | id   | customer_name | address | bank_id | balance | loan  |
++------+-------+------+---------------+---------+---------+---------+-------+
+|    1 | SBI   | NULL | NULL          | NULL    |    NULL |    NULL |  NULL |
+|    2 | HDFC  |    2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|    3 | ICICI |    3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|    2 | HDFC  |    2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|    3 | ICICI |    3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+| NULL | NULL  |    4 | Akash         | Mumbai  |    NULL |    NULL |  NULL |
++------+-------+------+---------------+---------+---------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from bank;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | SBI   |
+|  2 | HDFC  |
+|  3 | ICICI |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer;
++----+---------------+---------+---------+---------+-------+
+| id | customer_name | address | bank_id | balance | loan  |
++----+---------------+---------+---------+---------+-------+
+|  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|  4 | Akash         | Mumbai  |    NULL |    NULL |  NULL |
++----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank b left join customer c on c.bank_id = b.id union all select * from bank b right join customer c on c.bank_id = b.id;
++------+-------+------+---------------+---------+---------+---------+-------+
+| id   | name  | id   | customer_name | address | bank_id | balance | loan  |
++------+-------+------+---------------+---------+---------+---------+-------+
+|    1 | SBI   | NULL | NULL          | NULL    |    NULL |    NULL |  NULL |
+|    2 | HDFC  |    2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|    3 | ICICI |    3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|    2 | HDFC  |    2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|    3 | ICICI |    3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+| NULL | NULL  |    4 | Akash         | Mumbai  |    NULL |    NULL |  NULL |
++------+-------+------+---------------+---------+---------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from bank b full outer join customer c on c.bank_id = b.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'full outer join customer c on c.bank_id = b.id' at line 1
+mysql> select * from bank b  outer join customer c on c.bank_id = b.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join customer c on c.bank_id = b.id' at line 1
+mysql> select * from bank b inner join customer c on c.bank_id = b.id;
++----+-------+----+---------------+---------+---------+---------+-------+
+| id | name  | id | customer_name | address | bank_id | balance | loan  |
++----+-------+----+---------------+---------+---------+---------+-------+
+|  2 | HDFC  |  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
+|  3 | ICICI |  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
++----+-------+----+---------------+---------+---------+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> select * from customer order by id desc;
++----+---------------+---------+---------+---------+-------+
+| id | customer_name | address | bank_id | balance | loan  |
++----+---------------+---------+---------+---------+-------+
+|  4 | Akash         | Mumbai  |    NULL |    NULL |  NULL |
+|  3 | Jivan         | Pune    |       3 |   14000 | 40000 |
+|  2 | Mahesh        | Pune    |       2 |    8000 | 90000 |
++----+---------------+---------+---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer modify customer_name varchar(50) not null;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select max(loan) from customer;
++-----------+
+| max(loan) |
++-----------+
+|     90000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select max(loan),customer_name from customer;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'july18spring.customer.customer_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select max(loan),customer_name from customer group by customer_name;
++-----------+---------------+
+| max(loan) | customer_name |
++-----------+---------------+
+|     90000 | Mahesh        |
+|     40000 | Jivan         |
+|      NULL | Akash         |
++-----------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select max(loan),customer_name from customer group by customer_name limit 1;
++-----------+---------------+
+| max(loan) | customer_name |
++-----------+---------------+
+|     90000 | Mahesh        |
++-----------+---------------+
+1 row in set (0.01 sec)
+
+mysql>
+
