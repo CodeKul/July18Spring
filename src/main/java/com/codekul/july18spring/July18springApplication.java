@@ -1,5 +1,7 @@
 package com.codekul.july18spring;
 
+import com.codekul.july18spring.aop.BoyStudent;
+import com.codekul.july18spring.aop.GirlStudent;
 import com.codekul.july18spring.di.Company;
 import com.codekul.july18spring.ioc.Jio;
 import com.codekul.july18spring.ioc.SimConfig;
@@ -26,6 +28,11 @@ public class July18springApplication {
 
 		ConfigurableApplicationContext context1 = new AnnotationConfigApplicationContext(SimConfig.class);
 
+		BoyStudent boyStudent = context.getBean(BoyStudent.class);
+		boyStudent.study();
+
+		GirlStudent girlStudent = context.getBean(GirlStudent.class);
+		girlStudent.study();
 //		Jio jio1 = context1.getBean(Jio.class);
 //		jio1.call();
 	}
