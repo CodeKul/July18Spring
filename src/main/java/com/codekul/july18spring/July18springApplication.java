@@ -2,6 +2,7 @@ package com.codekul.july18spring;
 
 import com.codekul.july18spring.aop.BoyStudent;
 import com.codekul.july18spring.aop.GirlStudent;
+import com.codekul.july18spring.aop.MyException;
 import com.codekul.july18spring.di.Company;
 import com.codekul.july18spring.ioc.Jio;
 import com.codekul.july18spring.ioc.SimConfig;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class July18springApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		ConfigurableApplicationContext context = SpringApplication.run(July18springApplication.class, args);
 //		Jio jio  = context.getBean(Jio.class);
 //		jio.message();
@@ -29,7 +30,9 @@ public class July18springApplication {
 		ConfigurableApplicationContext context1 = new AnnotationConfigApplicationContext(SimConfig.class);
 
 		BoyStudent boyStudent = context.getBean(BoyStudent.class);
-		boyStudent.study();
+		boyStudent.studyPhysics();
+			boyStudent.getExc();
+
 
 		GirlStudent girlStudent = context.getBean(GirlStudent.class);
 		girlStudent.study();
